@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Shared.Utilities.Result;
 using Shared.Utilities.Result.Abstract;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Business.Abstract
     {
         Task<IDataResult<IList<Customer>>> GetAll();
         Task<IDataResult<IList<Customer>>> GetAllByCountry(string country);
-        Task<IDataResult<Customer>> Get(string customerId);
+        Task<ResponseModel<Customer>> Get(string customerId);
 
     }
 }

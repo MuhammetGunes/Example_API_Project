@@ -21,11 +21,11 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Get(string customerId)
         {
             var result = await _customerService.Get(customerId);
-            if (result.Success)
+            if (result.IsSuccess)
             {
                 return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result.ErrorMessage);
         }
         [HttpGet("getall")]
         public async Task<IActionResult> GetAll()

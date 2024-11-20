@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Shared.Utilities.Result;
 using Shared.Utilities.Result.Abstract;
 using Shared.Utilities.Result.Concrete;
 using System;
@@ -20,14 +21,17 @@ namespace Business.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IDataResult<Customer>> Get(string customerId)
+        public async Task<ResponseModel<Customer>> Get(string customerId)
         {
+            var response = new ResponseModel<Customer>();
             var customer = await _unitOfWork.Customers.GetAsync(c=>c.CustomerId == customerId);
             if (customer != null)
             {
-                return new SuccessDataResult<Customer>(customer, "İlgili müşteri bulundu.");
+                return response.Success(customer);
+                //return new SuccessDataResult<Customer>(customer, "İlgili müşteri bulundu.");
             }
-            return new ErrorDataResult<Customer>("Müşteri bulunamadı..");
+            return response.Fail("Müşteri bulunamadı..");
+            //return new ErrorDataResult<Customer>("Müşteri bulunamadı..");
         }
 
         public async Task<IDataResult<IList<Customer>>> GetAll()
